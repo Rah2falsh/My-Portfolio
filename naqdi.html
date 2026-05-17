@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naqdi Case Study</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#E9E5E2;
+  --navy:#2A2856;
+  --muted:rgba(42,40,86,0.6);
+  --glass:rgba(255,255,255,0.35);
+  --border:rgba(42,40,86,0.15);
+}
+
+/* BASE */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+}
+
+/* LANG FIX */
+.lang.en{display:none;}
+body.en .lang.ar{display:none;}
+body.en .lang.en{display:block;}
+
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(18px);
+  background:rgba(233,229,226,0.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  z-index:10;
+}
+
+/* BACK */
+.back-btn{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,0.25);
+  border:1px solid var(--border);
+  padding:8px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:800;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  background:var(--navy);
+  color:#fff;
+  transform:translateX(4px);
+}
+
+/* LANG BUTTON */
+.lang-btn{
+  background:rgba(255,255,255,0.25);
+  border:1px solid var(--border);
+  backdrop-filter:blur(14px);
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:60px 20px 25px;
+}
+
+.hero h1{
+  font-size:44px;
+  font-weight:900;
+}
+
+.hero p{
+  max-width:650px;
+  margin:10px auto;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+/* CATEGORIES */
+.categories{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.category{
+  flex:1;
+  min-width:200px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  padding:18px;
+  border-radius:18px;
+  transition:0.3s;
+}
+
+.category:hover{
+  background:var(--navy);
+  color:#fff;
+}
+
+/* SECTIONS */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:35px 20px;
+}
+
+/* CARD */
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(18px);
+  padding:22px;
+  border-radius:22px;
+}
+
+/* IMAGES (SMALL FIX FOR IPHONE) */
+.naqdi-img{
+  width:55%;
+  max-width:320px;
+  margin:18px auto;
+  display:block;
+  border-radius:18px;
+  transition:0.3s;
+}
+
+.naqdi-img:hover{
+  transform:scale(1.03);
+}
+
+/* IDEA BOX */
+.idea-box{
+  padding:30px;
+  border-radius:26px;
+  background:linear-gradient(145deg, rgba(255,255,255,0.4), rgba(255,255,255,0.15));
+}
+
+.idea-title{
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.idea-text{
+  font-size:15px;
+  line-height:2;
+  color:rgba(42,40,86,0.75);
+}
+
+/* TAGS */
+.idea-tags{
+  margin-top:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.idea-tags span{
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  font-size:12px;
+  transition:0.3s;
+}
+
+.idea-tags span:hover{
+  background:var(--navy);
+  color:#fff;
+}
+
+/* FLOAT BUTTON */
+.floating{
+  position:fixed;
+  bottom:18px;
+  left:18px;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+}
+
+.floating.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.floating button{
+  background:var(--navy);
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero h1{font-size:32px;}
+  .naqdi-img{width:85%;}
+  .category{min-width:100%;}
+}
+.nav-logo{
+  height:40px;
+  width:auto;
+  object-fit:contain;
+  transition:0.3s ease;
+}
+
+.nav-logo:hover{
+  transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <button class="back-btn" onclick="history.back()">→
+    <span class="lang ar">رجوع</span>
+    <span class="lang en">Back</span>
+  </button>
+
+  <img src="emplogo.png" alt="Logo" class="nav-logo">
+  <button class="lang-btn" onclick="toggleLang()">EN / AR</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>
+    <span class="lang ar">Naqdi</span>
+    <span class="lang en">Naqdi</span>
+  </h1>
+
+  <p>
+    <span class="lang ar">تجربة بنك رقمي حديثة تهدف لتبسيط العمليات المالية اليومية.</span>
+    <span class="lang en">A modern digital banking experience designed to simplify financial operations.</span>
+  </p>
+</section>
+
+<!-- CATEGORIES -->
+<div class="categories">
+
+  <div class="category">
+    <h3>
+      <span class="lang ar">الدور</span>
+      <span class="lang en">Role</span>
+    </h3>
+    <p>UX Research • UI Design</p>
+  </div>
+
+  <div class="category">
+    <h3>
+      <span class="lang ar">الأدوات</span>
+      <span class="lang en">Tools</span>
+    </h3>
+    <p>Figma • Wireframing • Prototyping</p>
+  </div>
+
+  <div class="category">
+    <h3>
+      <span class="lang ar">الهدف</span>
+      <span class="lang en">Goal</span>
+    </h3>
+    <p>
+      <span class="lang ar">تبسيط تجربة الخدمات البنكية</span>
+      <span class="lang en">Simplify banking experience</span>
+    </p>
+  </div>
+
+</div>
+
+<!-- IMAGES -->
+<section class="section">
+  <div class="card">
+    <h2>
+      <span class="lang ar">الواجهات</span>
+      <span class="lang en">Interfaces</span>
+    </h2>
+
+    <img class="naqdi-img" src="images/skillup5.png">
+    <img class="naqdi-img" src="images/skillup6.png">
+  </div>
+</section>
+
+<!-- IDEA -->
+<section class="section">
+  <div class="card idea-box">
+
+    <h2 class="idea-title">
+      <span class="lang ar">فكرة التصميم</span>
+      <span class="lang en">Design Concept</span>
+    </h2>
+
+    <p class="idea-text">
+      <span class="lang ar">
+        صُممت تجربة Naqdi بناءً على تحليل رحلة المستخدم داخل الخدمات البنكية بهدف تقليل الخطوات وزيادة الوضوح والثقة في الواجهة.
+      </span>
+      <span class="lang en">
+        Naqdi was designed based on user journey analysis to reduce steps, improve clarity, and enhance trust in the interface.
+      </span>
+    </p>
+
+    <div class="idea-tags">
+      <span>UX Research</span>
+      <span>Wireframing</span>
+      <span>Usability</span>
+      <span>Flow Design</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- FLOAT BUTTON -->
+<div class="floating" id="topBtn">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+
+<script>
+
+function toggleLang(){
+  document.body.classList.toggle('en');
+}
+
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 400) {
+    topBtn.classList.add("show");
+  } else {
+    topBtn.classList.remove("show");
+  }
+});
+
+</script>
+
+</body>
+</html>

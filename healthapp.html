@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health Tracker Case Study</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#E9E5E2;
+  --navy:#2A2856;
+  --muted:rgba(42,40,86,0.6);
+  --glass:rgba(255,255,255,0.35);
+  --border:rgba(42,40,86,0.15);
+}
+
+/* BASE */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+}
+
+/* LANG */
+.lang.en{display:none;}
+body.en .lang.ar{display:none;}
+body.en .lang.en{display:block;}
+
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(18px);
+  background:rgba(233,229,226,0.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  z-index:10;
+}
+
+/* BACK */
+.back-btn{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,0.25);
+  border:1px solid var(--border);
+  padding:8px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:800;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  background:var(--navy);
+  color:#fff;
+  transform:translateX(4px);
+}
+
+/* LOGO */
+.nav-logo{
+  height:40px;
+  width:auto;
+  object-fit:contain;
+  transition:0.3s;
+}
+.nav-logo:hover{transform:scale(1.05);}
+
+/* LANG */
+.lang-btn{
+  background:rgba(255,255,255,0.25);
+  border:1px solid var(--border);
+  backdrop-filter:blur(14px);
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:60px 20px 25px;
+}
+
+.hero h1{
+  font-size:44px;
+  font-weight:900;
+}
+
+.hero p{
+  max-width:650px;
+  margin:10px auto;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+/* CATEGORIES */
+.categories{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.category{
+  flex:1;
+  min-width:200px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  padding:18px;
+  border-radius:18px;
+  transition:0.3s;
+}
+
+.category:hover{
+  background:var(--navy);
+  color:#fff;
+}
+
+/* SECTIONS */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:35px 20px;
+}
+
+/* CARD */
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(18px);
+  padding:22px;
+  border-radius:22px;
+}
+
+/* IMAGES (SMALL FIX) */
+.health-img{
+  width:55%;
+  max-width:320px;
+  margin:18px auto;
+  display:block;
+  border-radius:18px;
+  transition:0.3s;
+}
+
+.health-img:hover{
+  transform:scale(1.03);
+}
+
+/* IDEA BOX */
+.idea-box{
+  padding:30px;
+  border-radius:26px;
+  background:linear-gradient(145deg, rgba(255,255,255,0.4), rgba(255,255,255,0.15));
+}
+
+.idea-title{
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.idea-text{
+  font-size:15px;
+  line-height:2;
+  color:rgba(42,40,86,0.75);
+}
+
+/* TAGS */
+.idea-tags{
+  margin-top:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.idea-tags span{
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  font-size:12px;
+  transition:0.3s;
+}
+
+.idea-tags span:hover{
+  background:var(--navy);
+  color:#fff;
+}
+
+/* FLOAT */
+.floating{
+  position:fixed;
+  bottom:18px;
+  left:18px;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+}
+
+.floating.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.floating button{
+  background:var(--navy);
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero h1{font-size:32px;}
+  .health-img{width:85%;}
+  .category{min-width:100%;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+
+  <button class="back-btn" onclick="history.back()">
+    → <span class="lang ar">رجوع</span><span class="lang en">Back</span>
+  </button>
+
+  <img src="emplogo.png" class="nav-logo">
+
+  <button class="lang-btn" onclick="toggleLang()">EN / AR</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Health Tracker</h1>
+
+  <p>
+    <span class="lang ar">تطبيق لتتبع الصحة والنشاط اليومي بطريقة بسيطة وسلسة داخل واجهات بتصميم عصري ومميز!</span>
+    <span class="lang en">An application to track health and daily activity in a simple and smooth way within interfaces with a modern and distinctive design!</span>
+  </p>
+</section>
+
+<!-- INFO -->
+<section class="categories">
+
+  <div class="category">
+    <h3><span class="lang ar">الدور</span><span class="lang en">Role</span></h3>
+    <p>UI Design • UX Research</p>
+  </div>
+
+  <div class="category">
+    <h3><span class="lang ar">الادوات</span><span class="lang en">Tools</span></h3>
+    <p>Figma • Prototyping</p>
+  </div>
+
+  <div class="category">
+    <h3><span class="lang ar">الهدف</span><span class="lang en">Goal</span></h3>
+    <p>
+      <span class="lang ar">تحسين نمط الحياة الصحي</span>
+      <span class="lang en">Improve healthy lifestyle</span>
+    </p>
+  </div>
+
+</section>
+
+<!-- IMAGES -->
+<section class="section">
+    <div class="card">
+      <h2>
+        <span class="lang ar">الواجهات</span>
+        <span class="lang en">Interfaces</span>
+      </h2>
+
+    <img class="health-img" src="images/skillup7.png">
+    <img class="health-img" src="images/skillup8.png">
+
+  </div>
+</section>
+
+<!-- IDEA -->
+<section class="section">
+  <div class="card idea-box">
+
+    <h2 class="idea-title">
+      <span class="lang ar">فكرة التصميم</span>
+      <span class="lang en">Design Concept</span>
+    </h2>
+
+    <p class="idea-text">
+      <span class="lang ar">
+        تم تصميم التطبيق بناءً على سلوك المستخدم اليومي لتشجيع العادات الصحية بطريقة مبسطة وبصرية.
+      </span>
+      <span class="lang en">
+        The app was designed based on daily user behavior to encourage healthy habits in a simple visual way.
+      </span>
+    </p>
+
+    <div class="idea-tags">
+      <span>UX Research</span>
+      <span>Habit Tracking</span>
+      <span>Usability</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- FLOAT -->
+<div class="floating" id="topBtn">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+
+<script>
+
+function toggleLang(){
+  document.body.classList.toggle('en');
+}
+
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 400) {
+    topBtn.classList.add("show");
+  } else {
+    topBtn.classList.remove("show");
+  }
+});
+
+</script>
+
+</body>
+</html>
