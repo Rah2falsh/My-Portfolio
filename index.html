@@ -179,12 +179,12 @@ nav {
   position:relative;
 }
 
-.role-track{
-  display:flex;
-  flex-direction:column;
-  will-change:transform;
+.role-track {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
 }
-
 .role-item{
   height:42px;
   line-height:42px;
@@ -977,19 +977,7 @@ body.lang-en .cv-item-date { direction: ltr; }
   </div>
 </section>
 
-<!-- =============== CV SECTION =============== -->
-<!-- 
-  ╔══════════════════════════════════════════════════════╗
-  ║  لتعديل السيرة الذاتية، ابحث في الكود عن هذه المناطق:
-  ║  
-  ║  🎓 التعليم   → ابحث عن: id="cv-edu"
-  ║  💼 الخبرة    → ابحث عن: id="cv-exp"
-  ║  🏆 الدورات   → ابحث عن: id="cv-courses"
-  ║  🌐 اللغات    → ابحث عن: id="cv-langs"
-  ║
-  ║  داخل كل قسم، عدّل النصوص بين الوسوم مباشرة.
-  ╚══════════════════════════════════════════════════════╝
--->
+
 
 
 
@@ -1012,32 +1000,32 @@ body.lang-en .cv-item-date { direction: ltr; }
   </div>
 
 </div>
-<div class="contact-links reveal">
-  <a href="https://github.com/Rah2falsh" class="contact-link" target="_blank" rel="noopener noreferrer">
-    <div>
-      <div class="contact-link-label">GitHub</div>
-      <div class="contact-link-value">Rah2falsh</div>
-    </div>
-    <span class="contact-link-arrow">←</span>
-  </a>
+ <div class="contact-links reveal">
+      <a href="https://github.com/Rah2falsh" class="contact-link" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="contact-link-label">GitHub</div>
+          <div class="contact-link-value">Rah2falsh</div>
+        </div>
+        <span class="contact-link-arrow">←</span>
+      </a>
 
-  <a href="mailto:Rah2fals@gmail.com" class="contact-link">
-    <div>
-      <div class="contact-link-label">Email</div>
-      <div class="contact-link-value">Rah2fals@gmail.com</div>
-    </div>
-    <span class="contact-link-arrow">←</span>
-  </a>
+      <a href="mailto:Rah2fals@gmail.com" class="contact-link">
+        <div>
+          <div class="contact-link-label">Email</div>
+          <div class="contact-link-value">Rah2fals@gmail.com</div>
+        </div>
+        <span class="contact-link-arrow">←</span>
+      </a>
 
-  <a href="https://www.linkedin.com/in/rahaf-s-alshammari-579359252" class="contact-link" target="_blank" rel="noopener noreferrer">
-    <div>
-      <div class="contact-link-label">LinkedIn</div>
-      <div class="contact-link-value">rahaf-s-alshammari</div>
+      <a href="https://www.linkedin.com/in/rahaf-s-alshammari-579359252" class="contact-link" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="contact-link-label">LinkedIn</div>
+          <div class="contact-link-value">rahaf-s-alshammari</div>
+        </div>
+        <span class="contact-link-arrow">←</span>
+      </a>
+      
     </div>
-    <span class="contact-link-arrow">←</span>
-  </a>
-  
-</div>
   </div>
 </section>
 
@@ -1049,171 +1037,110 @@ body.lang-en .cv-item-date { direction: ltr; }
   <div class="footer-copy">© 2026 Rahaf Al-shammari . All rights reserved.</div>
 </footer>
 
+
 <script>
-/* ===== CURSOR ===== */
-const cursor = document.getElementById('cursor');
-const ring   = document.getElementById('cursorRing');
-let mx=0, my=0, rx=0, ry=0;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-(function animateCursor(){
-  if(cursor){ cursor.style.left=mx+'px'; cursor.style.top=my+'px'; }
-  rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
-  if(ring){ ring.style.left=rx+'px'; ring.style.top=ry+'px'; }
-  requestAnimationFrame(animateCursor);
-})();
-document.querySelectorAll('a, button, .project-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ if(cursor){cursor.style.width='16px';cursor.style.height='16px';} if(ring){ring.style.width='52px';ring.style.height='52px';ring.style.opacity='0.2';} });
-  el.addEventListener('mouseleave',()=>{ if(cursor){cursor.style.width='10px';cursor.style.height='10px';} if(ring){ring.style.width='36px';ring.style.height='36px';ring.style.opacity='0.4';} });
-});
-
-/* ===== ROLE ROTATION ===== */
-let roleIdx = 0;
-let currentLang = 'ar';
-
-const track = document.getElementById('roleTrack');
-const itemHeight = 48;
-let roleTimer;
-
-const roles = {
-  ar: [
-    "مهندسة برمجيات",
-    "مصممة UI / UX",
-    "مطورة React.js",
-    "مهندسة برمجيات"
-  ],
-  en: [
-    "Software Engineer",
-    "UI / UX Designer",
-    "React.js Developer",
-    "Software Engineer"
-  ]
-};
-
-function renderRoles(){
-  track.innerHTML = roles[currentLang]
-    .map(role => `<span class="role-item">${role}</span>`)
-    .join('');
-
-  roleIdx = 0;
-  track.style.transition = 'none';
-  track.style.transform = 'translateY(0)';
-}
-
-function nextRole(){
-
-  roleIdx++;
-
-  track.style.transition = 'transform 0.55s ease';
-  track.style.transform = `translateY(-${roleIdx * itemHeight}px)`;
-
-  if(roleIdx === 3){
-
-    setTimeout(() => {
-      track.style.transition = 'none';
-      track.style.transform = 'translateY(0)';
-      roleIdx = 0;
-
-      roleTimer = setTimeout(nextRole, 2800);
-
-    }, 600);
-
-  } else {
-    roleTimer = setTimeout(nextRole, 2800);
-  }
-}
-
-function startRoles(){
-  clearTimeout(roleTimer);
-  renderRoles();
-  roleTimer = setTimeout(nextRole, 2800);
-}
-
-startRoles();
-function renderRoles(){
-  track.innerHTML = roles[currentLang]
-    .map(role => `<span class="role-item">${role}</span>`)
-    .join('');
-
-  roleIdx = 0;
-  track.style.transition = 'none';
-  track.style.transform = 'translateY(0)';
-}
-
-function nextRole(){
-
-  roleIdx++;
-
-  track.style.transition = 'transform 0.6s ease-in-out';
-    track.style.transform = `translateY(-${roleIdx * itemHeight}px)`;
-
-  if(roleIdx === 3){
-
-    setTimeout(() => {
-      track.style.transition = 'none';
-      track.style.transform = 'translateY(0)';
-      roleIdx = 0;
-
-      roleTimer = setTimeout(nextRole, 2500);
-
-    }, 850);
-
-  } else {
-    roleTimer = setTimeout(nextRole, 2500);
-  }
-}
-
-function startRoles(){
-  clearTimeout(roleTimer);
-  renderRoles();
-  roleTimer = setTimeout(nextRole, 2500);
-}
-
-startRoles();
-
-/* ===== SCROLL REVEALS ===== */
-const reveals = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting){
-      setTimeout(()=>e.target.classList.add('visible'), i*80);
-      obs.unobserve(e.target);
+  /* ===== CURSOR ===== */
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx=0, my=0, rx=0, ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  (function animateCursor(){
+    if(cursor){ cursor.style.left=mx+'px'; cursor.style.top=my+'px'; }
+    rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
+    if(ring){ ring.style.left=rx+'px'; ring.style.top=ry+'px'; }
+    requestAnimationFrame(animateCursor);
+  })();
+  document.querySelectorAll('a, button, .project-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ if(cursor){cursor.style.width='16px';cursor.style.height='16px';} if(ring){ring.style.width='52px';ring.style.height='52px';ring.style.opacity='0.2';} });
+    el.addEventListener('mouseleave',()=>{ if(cursor){cursor.style.width='10px';cursor.style.height='10px';} if(ring){ring.style.width='36px';ring.style.height='36px';ring.style.opacity='0.4';} });
+  });
+  
+  /* ===== ROLE ROTATION (الحركة المعتمدة والضابطة عندكِ) ===== */
+  document.addEventListener("DOMContentLoaded", () => {
+    const track = document.getElementById("roleTrack");
+    let currentIndex = 0;
+    
+    function rotateRoles() {
+      // 1. نتحقق هل الموقع حالياً باللغة الإنجليزية أم العربية بناءً على كلاس البودي
+      const isEnglish = document.body.classList.contains("lang-en");
+      
+      // 2. نحدد فقط العناصر الظاهرة للغة الحالية بناءً على الكلاسات الموجودة في الـ HTML الخاص بكِ
+      const selector = isEnglish ? ".role-item.en-only" : ".role-item.ar-only";
+      const activeItems = track.querySelectorAll(selector);
+      
+      if (activeItems.length === 0) return;
+  
+      // 3. ننتقل للعنصر التالي بتسلسل مرتب
+      currentIndex++;
+      if (currentIndex >= activeItems.length) {
+        currentIndex = 0; // يرجع للكلمة الأولى بسلاسة
+      }
+      
+      // 4. الحل السحري للتداخل: حساب الارتفاع الفعلي للعنصر النشط حالياً بدقة
+      const itemHeight = activeItems[currentIndex].offsetHeight || 42;
+      
+      // 5. نحرك التراك صعوداً بناءً على بُعد العناصر الحقيقية الظاهرة فقط وبحركة انسيابية
+      track.style.transition = 'transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)';
+      const yOffset = -(currentIndex * itemHeight);
+      track.style.transform = `translateY(${yOffset}px)`;
     }
+    
+    // التغيير يتم بروقان ونعومة تامة كل ثانيتين (2000ms) كما فضلتِ
+    setInterval(rotateRoles, 2000);
   });
-},{threshold:0.1});
-reveals.forEach(el=>obs.observe(el));
-
-/* ===== LANGUAGE TOGGLE ===== */
-function toggleLang(){
-  currentLang = isEn ? 'en' : 'ar';
-  startRoles();
-  const html  = document.documentElement;
-  const body  = document.body;
-  const label = document.getElementById('langLabel');
-  currentLang = isEn ? 'en' : 'ar';
-  renderRoles();
-  html.setAttribute('lang', isEn ? 'en' : 'ar');
-  html.setAttribute('dir',  isEn ? 'ltr' : 'rtl');
-  body.classList.toggle('lang-en', isEn);
-  label.textContent = isEn ? 'AR' : 'EN';
-
-  document.querySelectorAll('span[data-ar]').forEach(el => {
-  el.style.display = isEn ? 'none' : '';
-});
-
-document.querySelectorAll('span[data-en]').forEach(el => {
-  el.style.display = isEn ? '' : 'none';
-});
-
-  document.querySelectorAll('.role-item.ar-only').forEach(el=>el.style.display = isEn ? 'none' : '');
-  document.querySelectorAll('.role-item.en-only').forEach(el=>el.style.display = isEn ? ''     : 'none');
-
-  resetRoleTrack();
-
-  document.querySelectorAll('.nav-links a').forEach(a=>{
-    const key = isEn ? 'en' : 'ar';
-    if(a.dataset[key]) a.textContent = a.dataset[key];
-  });
-}
-</script>
+  
+  /* ===== SCROLL REVEALS ===== */
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=>e.target.classList.add('visible'), i*80);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.1});
+  reveals.forEach(el=>obs.observe(el));
+  
+  /* ===== LANGUAGE TOGGLE (زر تبديل اللغة الخاص بكِ كاملاً ومحمي) ===== */
+  function toggleLang(){
+    // التحقق من كلاس البودي لتبديل الحالة بشكل صحيح
+    const body = document.body;
+    const isEn = !body.classList.contains('lang-en');
+    
+    const html  = document.documentElement;
+    const label = document.getElementById('langLabel');
+    
+    html.setAttribute('lang', isEn ? 'en' : 'ar');
+    html.setAttribute('dir',  isEn ? 'ltr' : 'rtl');
+    body.classList.toggle('lang-en', isEn);
+    label.textContent = isEn ? 'AR' : 'EN';
+  
+    // إظهار وإخفاء النصوص الثابتة في صفحتكِ بناءً على اللغة
+    document.querySelectorAll('span[data-ar]').forEach(el => {
+      el.style.display = isEn ? 'none' : '';
+    });
+  
+    document.querySelectorAll('span[data-en]').forEach(el => {
+      el.style.display = isEn ? '' : 'none';
+    });
+  
+    // التحكم في ظهور عناصر المسميات داخل التراك عند التبديل الفوري للغة
+    document.querySelectorAll('.role-item.ar-only').forEach(el => el.style.display = isEn ? 'none' : '');
+    document.querySelectorAll('.role-item.en-only').forEach(el => el.style.display = isEn ? '' : 'none');
+  
+    // إعادة تعيين موضع التراك إلى الصفر عند تغيير اللغة لمنع التداخل واللخبطة
+    const track = document.getElementById("roleTrack");
+    if(track) {
+      track.style.transition = 'none';
+      track.style.transform = 'translateY(0)';
+    }
+  
+    // تحديث نصوص القائمة العلوية (Nav Links)
+    document.querySelectorAll('.nav-links a').forEach(a=>{
+      const key = isEn ? 'en' : 'ar';
+      if(a.dataset[key]) a.textContent = a.dataset[key];
+    });
+  }
+  </script>
 </body>
 </html>
