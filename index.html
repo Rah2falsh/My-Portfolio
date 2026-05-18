@@ -599,13 +599,11 @@ body.lang-en .cv-item-date { direction: ltr; }
   transition:0.25s ease;
 }
 
-/* hover فقط تحسين بسيط */
 .tag:hover{
   transform:translateY(-2px);
   background:rgba(42,40,86,0.08);
 }
 
-/* اختياري: تمييز خفيف بدون ألوان خارجية */
 .tag.figma::before{
   opacity:0.6;
 }
@@ -644,7 +642,6 @@ body.lang-en .cv-item-date { direction: ltr; }
   background:rgba(42,40,86,0.08);
 }
 
-/* optional subtle grouping (بدون ألوان) */
 .tag.system::before{
   content:"System · ";
   opacity:0.6;
@@ -1024,12 +1021,17 @@ body.lang-en .cv-item-date { direction: ltr; }
         <span class="contact-link-arrow">←</span>
       </a>
 
-      <div class="contact-link" onclick="copyPhoneNumber(this)" style="cursor: none; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-        <div>
+      <div class="contact-link" onclick="copyPhoneNumber(this)" style="cursor: none; display: flex; justify-content: space-between; align-items: center; width: 100%; color: #ffffff !important;">
+        <div style="color: #ffffff !important;">
           <div class="contact-link-label">Phone</div>
-          <div class="contact-link-value" dir="ltr" style="color: #ffffff !important;">+966500858603</div>
+          <div class="contact-link-value" dir="ltr" style="color: #ffffff !important; -webkit-text-fill-color: #ffffff !important;">
+            <style>
+              .contact-link-value a, .contact-link-value span { color: #ffffff !important; text-decoration: none !important; }
+            </style>
+            +966500858603
+          </div>
         </div>
-        <span class="contact-link-arrow icon-container" style="display: flex; align-items: center; justify-content: center; width: 20px; height: 20px;">
+        <span class="contact-link-arrow icon-container" style="display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; color: #ffffff !important;">
           <svg class="copy-svg" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transition: all 0.2s ease;">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -1073,31 +1075,25 @@ body.lang-en .cv-item-date { direction: ltr; }
     let currentIndex = 0;
     
     function rotateRoles() {
-      // 1. نتحقق هل الموقع حالياً باللغة الإنجليزية أم العربية بناءً على كلاس البودي
       const isEnglish = document.body.classList.contains("lang-en");
       
-      // 2. نحدد فقط العناصر الظاهرة للغة الحالية بناءً على الكلاسات الموجودة في الـ HTML الخاص بكِ
       const selector = isEnglish ? ".role-item.en-only" : ".role-item.ar-only";
       const activeItems = track.querySelectorAll(selector);
       
       if (activeItems.length === 0) return;
   
-      // 3. ننتقل للعنصر التالي بتسلسل مرتب
       currentIndex++;
       if (currentIndex >= activeItems.length) {
         currentIndex = 0; // يرجع للكلمة الأولى بسلاسة
       }
       
-      // 4. الحل السحري للتداخل: حساب الارتفاع الفعلي للعنصر النشط حالياً بدقة
       const itemHeight = activeItems[currentIndex].offsetHeight || 42;
       
-      // 5. نحرك التراك صعوداً بناءً على بُعد العناصر الحقيقية الظاهرة فقط وبحركة انسيابية
       track.style.transition = 'transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)';
       const yOffset = -(currentIndex * itemHeight);
       track.style.transform = `translateY(${yOffset}px)`;
     }
     
-    // التغيير يتم بروقان ونعومة تامة كل ثانيتين (2000ms) كما فضلتِ
     setInterval(rotateRoles, 2000);
   });
   
@@ -1113,9 +1109,7 @@ body.lang-en .cv-item-date { direction: ltr; }
   },{threshold:0.1});
   reveals.forEach(el=>obs.observe(el));
   
-  /* ===== LANGUAGE TOGGLE (زر تبديل اللغة الخاص بكِ كاملاً ومحمي) ===== */
   function toggleLang(){
-    // التحقق من كلاس البودي لتبديل الحالة بشكل صحيح
     const body = document.body;
     const isEn = !body.classList.contains('lang-en');
     
@@ -1127,7 +1121,6 @@ body.lang-en .cv-item-date { direction: ltr; }
     body.classList.toggle('lang-en', isEn);
     label.textContent = isEn ? 'AR' : 'EN';
   
-    // إظهار وإخفاء النصوص الثابتة في صفحتكِ بناءً على اللغة
     document.querySelectorAll('span[data-ar]').forEach(el => {
       el.style.display = isEn ? 'none' : '';
     });
@@ -1136,11 +1129,9 @@ body.lang-en .cv-item-date { direction: ltr; }
       el.style.display = isEn ? '' : 'none';
     });
   
-    // التحكم في ظهور عناصر المسميات داخل التراك عند التبديل الفوري للغة
     document.querySelectorAll('.role-item.ar-only').forEach(el => el.style.display = isEn ? 'none' : '');
     document.querySelectorAll('.role-item.en-only').forEach(el => el.style.display = isEn ? '' : 'none');
   
-    // إعادة تعيين موضع التراك إلى الصفر عند تغيير اللغة لمنع التداخل واللخبطة
     const track = document.getElementById("roleTrack");
     if(track) {
       track.style.transition = 'none';
@@ -1160,14 +1151,12 @@ function copyPhoneNumber(element) {
   navigator.clipboard.writeText(phoneNumber).then(() => {
     const iconContainer = element.querySelector('.icon-container');
     
-    // تغيير المحتوى الداخلي إلى أيقونة علامة الصح (SVG) بدقة ونعومة
     iconContainer.innerHTML = `
       <svg class="check-svg" viewBox="0 0 24 24" width="18" height="18" stroke="#4caf50" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transform: scale(1.1); transition: all 0.2s ease;">
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
     `;
     
-    // إعادة أيقونة النسخ الأصلية (SVG) بعد ثانيتين (2000ms) بروقان
     setTimeout(() => {
       iconContainer.innerHTML = `
         <svg class="copy-svg" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transition: all 0.2s ease;">
