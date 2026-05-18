@@ -999,8 +999,7 @@ body.lang-en .cv-item-date { direction: ltr; }
     </a>
   </div>
 
-</div>
- <div class="contact-links reveal">
+  <div class="contact-links reveal" style="margin-top: 2.5rem;">
       <a href="https://github.com/Rah2falsh" class="contact-link" target="_blank" rel="noopener noreferrer">
         <div>
           <div class="contact-link-label">GitHub</div>
@@ -1024,6 +1023,19 @@ body.lang-en .cv-item-date { direction: ltr; }
         </div>
         <span class="contact-link-arrow">←</span>
       </a>
+
+      <div class="contact-link" onclick="copyPhoneNumber(this)" style="cursor: none;">
+        <div>
+          <div class="contact-link-label">Phone</div>
+          <div class="contact-link-value" dir="ltr">+966500858603</div>
+        </div>
+        <span class="contact-link-arrow icon-container" style="display: flex; align-items: center; justify-content: center; width: 20px; height: 20px;">
+          <svg class="copy-svg" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transition: all 0.2s ease;">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </span>
+      </div>
       
     </div>
   </div>
@@ -1141,6 +1153,33 @@ body.lang-en .cv-item-date { direction: ltr; }
       if(a.dataset[key]) a.textContent = a.dataset[key];
     });
   }
+  /* ===== COPY TO CLIPBOARD WITH SVG TOGGLE ===== */
+function copyPhoneNumber(element) {
+  const phoneNumber = "+966500858603";
+  
+  navigator.clipboard.writeText(phoneNumber).then(() => {
+    const iconContainer = element.querySelector('.icon-container');
+    
+    // تغيير المحتوى الداخلي إلى أيقونة علامة الصح (SVG) بدقة ونعومة
+    iconContainer.innerHTML = `
+      <svg class="check-svg" viewBox="0 0 24 24" width="18" height="18" stroke="#4caf50" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transform: scale(1.1); transition: all 0.2s ease;">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    `;
+    
+    // إعادة أيقونة النسخ الأصلية (SVG) بعد ثانيتين (2000ms) بروقان
+    setTimeout(() => {
+      iconContainer.innerHTML = `
+        <svg class="copy-svg" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transition: all 0.2s ease;">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      `;
+    }, 2000);
+  }).catch(err => {
+    console.error('فشلت عملية النسخ: ', err);
+  });
+}
   </script>
 </body>
 </html>
