@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SparkHub Case Study</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#E9E5E2;
+  --navy:#2A2856;
+  --muted:rgba(42,40,86,0.6);
+  --glass:rgba(255,255,255,0.35);
+  --border:rgba(42,40,86,0.15);
+}
+
+/* ===== BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+  transition:0.3s ease;
+}
+
+/* ===== LANGUAGE SYSTEM (FIXED) ===== */
+.lang.en{display:none;}
+body.en .lang.ar{display:none;}
+body.en .lang.en{display:block;}
+
+/* ===== NAV ===== */
+nav{
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(18px);
+  background:rgba(233,229,226,0.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  z-index:10;
+}
+
+/* ===== BACK BUTTON ===== */
+.back-btn{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  background:rgba(255,255,255,0.25);
+  border:1px solid var(--border);
+  backdrop-filter:blur(14px);
+
+  padding:8px 14px;
+  border-radius:999px;
+
+  cursor:pointer;
+  font-weight:800;
+  color:var(--navy);
+
+  transition:0.3s ease;
+}
+
+.back-btn:hover{
+  background:var(--navy);
+  color:white;
+  transform:translateX(4px);
+}
+
+.back-btn .arrow{
+  font-size:16px;
+  font-weight:900;
+  transition:0.3s ease;
+}
+
+.back-btn:hover .arrow{
+  transform:translateX(-3px);
+}
+
+/* ===== LANG BUTTON ===== */
+.lang-btn{
+  border:1px solid var(--border);
+  padding:6px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  background:transparent;
+  font-weight:700;
+}
+
+/* ===== HERO ===== */
+.hero{
+  text-align:center;
+  padding:60px 20px 30px;
+}
+
+.hero h1{
+  font-size:52px;
+  font-weight:900;
+}
+
+.hero p{
+  max-width:650px;
+  margin:12px auto;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+/* ===== SECTIONS ===== */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+/* ===== GLASS CARD ===== */
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(18px);
+
+  padding:32px 38px; /* 👈 كان أصغر */
+  border-radius:22px;
+
+  transition:0.3s ease;
+
+  max-width:1000px;
+  margin:auto;
+}
+
+.card p{
+  font-size:16px;
+  line-height:1.9;
+}
+
+/* ===== CATEGORIES ===== */
+.categories{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.category{
+  flex:1;
+  min-width:220px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  padding:16px;
+  border-radius:18px;
+  transition:0.3s ease;
+  cursor:pointer;
+}
+
+.category:hover{
+  background:var(--navy);
+  color:white;
+}
+
+/* ===== IMAGES ===== */
+img{
+  width:100%;
+  border-radius:22px;
+  margin-top:18px;
+}
+
+/* ===== BIG IMAGE ===== */
+.big-img{
+  margin-bottom:20px;
+}
+
+/* ===== TAGS ===== */
+.tags span{
+  display:inline-block;
+  margin:4px;
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  font-size:13px;
+}
+
+/* ===== FLOAT BUTTONS ===== */
+.floating{
+  position:fixed;
+  bottom:15px;
+  left:15px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.floating button{
+  background:var(--navy);
+  color:white;
+  border:none;
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+}
+#topBtn{
+  opacity:0;
+  transform:translateY(10px);
+  pointer-events:none;
+
+  transition:0.3s ease;
+}
+
+#topBtn.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .hero h1{font-size:34px;}
+  .categories{flex-direction:column;}
+}
+.nav-logo{
+  height:40px;
+  width:auto;
+  object-fit:contain;
+  transition:0.3s ease;
+}
+
+.nav-logo:hover{
+  transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+
+  <!-- BACK BUTTON -->
+  <button class="back-btn" onclick="history.back()">
+    <span class="arrow">→</span>
+    <span class="lang ar">رجوع</span>
+    <span class="lang en">Back</span>
+  </button>
+
+  <img src="emplogo.png" alt="Logo" class="nav-logo">
+
+  <button class="lang-btn" onclick="toggleLang()">EN / AR</button>
+
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <h1>
+    <span class="lang ar">SkillUp</span>
+    <span class="lang en">SkillUp</span>
+  </h1>
+
+  <p>
+    <span class="lang ar">
+        مشروع تخرج - منصة رقمية لإدارة الأندية الطلابية وتنظيم الفعاليات والأنشطة الجامعية.
+    </span>
+    <span class="lang en">
+        A graduation project that provides a digital platform for managing student clubs and organizing campus events and activities.    </span>
+  </p>
+
+</section>
+
+<!-- ROLE / TOOLS / GOAL -->
+<section class="section">
+
+  <div class="categories">
+
+    <div class="category">
+      <h3>
+        <span class="lang ar">الدور</span>
+        <span class="lang en">Role</span>
+      </h3>
+      <p>Project Manager • System Analyst • UX Researcher • Wireframe & UI/UX Designer • Front-end Developer </p>
+    </div>
+
+    <div class="category">
+      <h3>
+        <span class="lang ar">الأدوات</span>
+        <span class="lang en">Tools</span>
+      </h3>
+      <p>Figma • Angular • Django • SSMS • Microsoft Azure • GitHub </p>
+    </div>
+
+    <div class="category">
+      <h3>
+        <span class="lang ar">الهدف</span>
+        <span class="lang en">Goal</span>
+      </h3>
+      <p>
+        <span class="lang ar">تسهيل إدارة الأندية الطلابية وزيادة مشاركة الطلاب في الأنشطة الجامعية.</span>
+        <span class="lang en">To simplify student club management and increase student engagement in campus activities.</span>
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- IMAGES -->
+<section class="section">
+  <div class="card">
+
+    <h2>
+      <span class="lang ar">الواجهات</span>
+      <span class="lang en">Interface</span>
+    </h2>
+
+    <img class="big-img" src="images/spark1.PNG">
+    <img class="big-img" src="images/spark2.PNG">
+    <img class="big-img" src="images/spark3.PNG">
+    <img class="big-img" src="images/spark4.PNG">
+
+  </div>
+</section>
+
+<!-- ANALYSIS -->
+<section class="section">
+  <div class="card">
+
+    <h2>
+      <span class="lang ar">فكرة التصميم</span>
+      <span class="lang en">Design concept</span>
+    </h2>
+
+    <p>
+      <span class="lang ar">
+        تم تصميم الواجهة بناءً على تحليل تجربة المستخدم لتقليل التعقيد وزيادة الوضوح.
+      </span>
+      <span class="lang en">
+        The UI was designed based on UX research to reduce complexity and improve clarity.
+      </span>
+    </p>
+
+    <div class="tags">
+      <span>UI/UX</span>
+      <span>Wireframes & Prototyping</span>
+      <span> Front-end by Angular</span>
+      <span>System Design</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- FLOAT BUTTON -->
+<div class="floating" id="topBtn">
+    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">↑</button>
+</div>
+
+<script>
+
+// language
+function toggleLang(){
+  document.body.classList.toggle('en');
+}
+
+// scroll button
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 400) {
+    topBtn.classList.add("show");
+  } else {
+    topBtn.classList.remove("show");
+  }
+});
+
+</script>
+</body>
+</html>
