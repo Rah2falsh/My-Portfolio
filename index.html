@@ -661,12 +661,178 @@ body.lang-en .cv-item-date { direction: ltr; }
   opacity:0.6;
 }
 }
+/* =============== EDUCATION =============== */
+
+.education-section{
+  margin-top:55px;
+  padding-top:35px;
+  border-top:1px solid var(--border);
+}
+
+.education-heading{
+  margin-bottom:22px;
+}
+
+.education-kicker{
+  display:block;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.education-heading h3{
+  font-size:26px;
+  font-weight:900;
+}
+
+.education-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+
+.education-card{
+  position:relative;
+  padding:24px;
+  min-height:230px;
+  border-radius:22px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(18px);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  overflow:hidden;
+  transition:0.3s ease;
+}
+
+.education-card::after{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:rgba(42,40,86,0.04);
+  left:-35px;
+  bottom:-45px;
+}
+
+.education-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(42,40,86,0.25);
+}
+
+.education-card.featured{
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,0.45),
+    rgba(255,255,255,0.18)
+  );
+}
+
+.education-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.education-icon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:var(--navy);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:900;
+}
+
+.education-type{
+  font-size:11px;
+  font-weight:800;
+  color:var(--muted);
+}
+
+.education-content{
+  margin:22px 0;
+}
+
+.education-content h4{
+  font-size:20px;
+  font-weight:900;
+  line-height:1.5;
+  max-width:500px;
+}
+
+.education-content p{
+  margin-top:6px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.education-meta{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  position:relative;
+  z-index:1;
+}
+
+.education-meta > div{
+  display:flex;
+  align-items:baseline;
+  gap:5px;
+}
+
+.education-meta strong{
+  font-size:28px;
+  font-weight:900;
+}
+
+.education-meta > div span{
+  font-size:11px;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.honors{
+  padding:6px 11px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+@media(max-width:768px){
+
+  .education-grid{
+    grid-template-columns:1fr;
+  }
+
+  .education-card{
+    min-height:210px;
+  }
+
+  .education-content h4{
+    font-size:18px;
+  }
+
+}
 </style>
 </head>
 <body>
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+
 
 <!-- =============== NAV =============== -->
 <nav>
@@ -705,12 +871,12 @@ body.lang-en .cv-item-date { direction: ltr; }
       <div class="role-track" id="roleTrack">
     
         <span class="role-item ar-only">مهندسة برمجيات</span>
-        <span class="role-item ar-only">مصممة UI / UX</span>
+        <span class="role-item ar-only">مهندسة سحابة</span>
         <span class="role-item ar-only">مطورة React.js</span>
       
     
         <span class="role-item en-only" style="display:none;">Software Engineer</span>
-        <span class="role-item en-only" style="display:none;">UI / UX Designer</span>
+        <span class="role-item en-only" style="display:none;">Cloud Engineer</span>
         <span class="role-item en-only" style="display:none;">React.js Developer</span>
         <span class="role-item en-only" style="display:none;">Software Engineer</span>
     
@@ -719,12 +885,8 @@ body.lang-en .cv-item-date { direction: ltr; }
   </div>
   <div class="hero-bottom">
     <p class="hero-desc">
-      <span data-ar><strong>مهندسة برمجيات</strong> أبني حلولاً تقنية متكاملة —
-      من تحليل المتطلبات وتصميم الأنظمة إلى الكود الجاهز للإنتاج،
-      بخلفية إضافية في تصميم تجربة المستخدم.</span>
-<span data-en style="display:none;"><strong>Software engineer</strong> building end-to-end technical solutions —
-      from requirements analysis and system design to production-ready code,
-      with an additional foundation in UX design.</span>
+      <span data-ar><strong>مهندسة برمجيات</strong> أبني حلولًا تقنية متكاملة، من تصميم الأنظمة وتطوير البرمجيات إلى بناء البنية التحتية السحابية وأتمتة عمليات النشر.</span>
+<span data-en style="display:none;"><strong>Software engineer</strong> building end-to-end technical solutions, from system design and software development to cloud infrastructure and deployment automation.</span>
 </p>
     <div class="hero-cta">
       <a href="#projects" class="btn-main">
@@ -749,31 +911,145 @@ body.lang-en .cv-item-date { direction: ltr; }
   <div class="about-grid">
     <div class="about-text reveal">
       <p>
-        <span data-ar>مهندسة برمجيات حديثة التخرج، متخصصة في
+        <span data-ar>مهندسة برمجيات متخصصة في
         <strong>تطوير الحلول التقنية وتكامل الأنظمة.</strong>
-        أفكر بمنطق هندسي وأبني بأدوات المطورة.</span>
-        <span data-en style="display:none;">A recently graduated software engineer, specialized in
+        أعمل بمنطق هندسي وأبني حلولًا عملية باستخدام تقنيات حديثة.</span>
+        <span data-en style="display:none;">A Software Engineer focused on
         <strong>technical solution development and systems integration.</strong>
-        I think with an engineer's logic and build with a developer's toolkit.</span>
+        I approach problems with an engineering mindset and build practical solutions using modern technologies.</span>
       </p>
+      
       <p>
-        <span data-ar>متخصصة في تطوير الواجهات وتكاملها مع الأنظمة الخلفية باستخدام
-        <strong>React.js وAngular</strong>، مع خلفية إضافية في تصميم <strong>UI/UX</strong> على Figma —
-        مما يمنحني فهمًا شاملاً لدورة المنتج من التحليل حتى الإنتاج.</span>
-        <span data-en style="display:none;">Specialized in front-end development and backend integration using
-        <strong>React.js and Angular</strong>, with an additional foundation in <strong>UI/UX</strong> design on Figma —
-        giving me a well-rounded understanding of the product lifecycle from analysis to production.</span>
+        <span data-ar>أركز على <strong>الحوسبة السحابية والبنية التحتية وتطوير الـBackend</strong> باستخدام
+        <strong>Azure وAWS وTerraform وDocker وPython وFastAPI</strong>، إلى جانب خبرة في تطوير تطبيقات الويب باستخدام
+        <strong>React.js وNext.js وTypeScript</strong>.</span>
+        <span data-en style="display:none;">I focus on <strong>cloud computing, infrastructure, and backend development</strong> using
+        <strong>Azure, AWS, Terraform, Docker, Python, and FastAPI</strong>, alongside experience in web development using
+        <strong>React.js, Next.js, and TypeScript</strong>.</span>
       </p>
+      
       <p>
-        <span data-ar>عملت على مشاريع حقيقية وأكاديمية، من تحليل المتطلبات وتصميم النظام
-        حتى الكود الجاهز للنشر.</span>
-        <span data-en style="display:none;">I've worked on real and academic projects, from requirements analysis and system design
-        all the way to production-ready code.</span>
+        <span data-ar>عملت على مشاريع حقيقية وأكاديمية شملت
+        <strong>تحليل المتطلبات، تصميم الأنظمة، تطوير التطبيقات، بناء البنية التحتية السحابية، والنشر والتشغيل.</strong></span>
+        <span data-en style="display:none;">I have worked on real-world and academic projects covering
+        <strong>requirements analysis, system design, application development, cloud infrastructure, deployment, and operations.</strong></span>
       </p>
+
     </div>
+    <!-- =============== EDUCATION =============== -->
+
+<div class="education-section reveal">
+
+  <div class="education-heading">
+    <span class="education-kicker">
+      <span data-ar>التعليم والتطوير</span>
+      <span data-en style="display:none;">Education & Development</span>
+    </span>
+
+    <h3>
+      <span data-ar>رحلتي التعليمية</span>
+      <span data-en style="display:none;">My Learning Journey</span>
+    </h3>
+  </div>
+
+  <div class="education-grid">
+
+    <!-- Bachelor's Degree -->
+    <div class="education-card">
+
+      <div class="education-top">
+        <div class="education-icon">01</div>
+
+        <span class="education-type">
+          <span data-ar>درجة جامعية</span>
+          <span data-en style="display:none;">Bachelor's Degree</span>
+        </span>
+      </div>
+
+      <div class="education-content">
+
+        <h4>
+          <span data-ar>بكالوريوس هندسة البرمجيات</span>
+          <span data-en style="display:none;">Bachelor of Software Engineering</span>
+        </h4>
+
+        <p>
+          <span data-ar>جامعة حائل</span>
+          <span data-en style="display:none;">University of Hail</span>
+        </p>
+
+      </div>
+
+      <div class="education-meta">
+
+        <div>
+          <strong>3.406</strong>
+          <span>
+            <span data-ar>/ 4.00</span>
+            <span data-en style="display:none;">/ 4.00 GPA</span>
+          </span>
+        </div>
+
+        <span class="honors">
+          <span data-ar>مرتبة الشرف الثانية</span>
+          <span data-en style="display:none;">Second Class Honors</span>
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- Cloud Computing Bootcamp -->
+    <div class="education-card featured">
+
+      <div class="education-top">
+        <div class="education-icon">02</div>
+
+        <span class="education-type">
+          <span data-ar>معسكر مكثف</span>
+          <span data-en style="display:none;">Intensive Bootcamp</span>
+        </span>
+      </div>
+
+      <div class="education-content">
+
+        <h4>
+          <span data-ar>الحوسبة السحابية باستخدام Microsoft Azure</span>
+          <span data-en style="display:none;">Cloud Computing with Microsoft Azure</span>
+        </h4>
+
+        <p>
+          <span data-ar>الأكاديمية السعودية الرقمية (SDA)</span>
+          <span data-en style="display:none;">Saudi Digital Academy (SDA)</span>
+        </p>
+
+      </div>
+
+      <div class="education-meta">
+
+        <div>
+          <strong>240</strong>
+          <span>
+            <span data-ar>ساعة تدريبية</span>
+            <span data-en style="display:none;">Training Hours</span>
+          </span>
+        </div>
+
+        <span class="honors">
+          Azure • Cloud
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
     <div class="about-stats reveal">
       <div class="stat-box">
-        <span class="stat-num">+4</span>
+        <span class="stat-num">+6</span>
         <span class="stat-label">
           <span data-ar>مشروع مكتمل</span>
           <span data-en style="display:none;">Completed Projects</span>
@@ -812,39 +1088,48 @@ body.lang-en .cv-item-date { direction: ltr; }
     <span data-en style="display:none;">My Toolkit</span>
   </h2>
   <div class="skills-grid reveal">
+
     <div class="skill-group">
-      <div class="skill-group-title">Design</div>
+      <div class="skill-group-title">Cloud Computing</div>
       <div class="skill-tags">
-        <span class="skill-tag highlight">Figma</span>
-        <span class="skill-tag">UX Research</span>
-        <span class="skill-tag">Prototyping</span>
-        <span class="skill-tag">User Flows</span>
-        <span class="skill-tag">Wireframing</span>
-        <span class="skill-tag">Design Systems</span>
-        <span class="skill-tag">Usability Testing</span>
+        <span class="skill-tag highlight">Microsoft Azure</span>
+        <span class="skill-tag">AWS</span>
+        <span class="skill-tag">Terraform</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Docker Compose</span>
+        <span class="skill-tag">Cloud Infrastructure</span>
+        <span class="skill-tag">Infrastructure as Code</span>
       </div>
     </div>
+
     <div class="skill-group">
       <div class="skill-group-title">Development</div>
       <div class="skill-tags">
-        <span class="skill-tag highlight">React.js</span>
-        <span class="skill-tag">JavaScript</span>
-        <span class="skill-tag">HTML &amp; CSS</span>
-        <span class="skill-tag">Tailwind CSS</span>
-        <span class="skill-tag">Git &amp; GitHub</span>
+        <span class="skill-tag highlight">Python</span>
+        <span class="skill-tag">FastAPI</span>
+        <span class="skill-tag">React.js</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">TypeScript</span>
         <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">Git &amp; GitHub</span>
       </div>
     </div>
+
     <div class="skill-group">
       <div class="skill-group-title">Engineering</div>
       <div class="skill-tags">
         <span class="skill-tag highlight">Software Engineering</span>
-        <span class="skill-tag">OOP</span>
-        <span class="skill-tag">Agile / Scrum</span>
-        <span class="skill-tag">Problem Solving</span>
+        <span class="skill-tag">System Design</span>
+        <span class="skill-tag">Backend Development</span>
+        <span class="skill-tag">Database Design</span>
         <span class="skill-tag">Requirements Analysis</span>
+        <span class="skill-tag">API Integration</span>
+        <span class="skill-tag">Problem Solving</span>
+        <span class="skill-tag">Agile / Scrum</span>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -857,12 +1142,84 @@ body.lang-en .cv-item-date { direction: ltr; }
   </h2>
 
   <div class="projects-list reveal">
-
     <!-- PROJECT 1 -->
     <div class="project-card">
 
       <div class="project-visual">
         <div class="project-badge">01</div>
+        <h1 class="project-big-title">Cloud File Sharing & Collaboration Platform</h1>
+        <div class="glow-line"></div>
+      </div>
+
+      <div class="project-info">
+
+        <div class="project-year">2026 · Cloud Project · Graduation Project from Saudi Digital Academy SDA </div>
+
+        <div class="project-desc">
+          <span data-ar>منصة سحابية لمشاركة الملفات والتعاون الداخلي، تتيح للفرق تخزين الملفات وتنظيمها ومشاركتها وإدارة المستخدمين والصلاحيات عبر بيئة مركزية.
+ </span>
+          <span data-en style="display:none;">
+            A cloud-based platform for internal file sharing and collaboration, enabling teams to store, organize, and share files while managing users and access permissions through a centralized environment.
+          </span>
+        </div>
+
+        <div class="project-tags">
+
+          <span class="tag figma">Microsoft Azure</span>
+          <span class="tag react">Nextcloud</span>
+          <span class="tag firebase">Terraform</span>
+          <span class="tag firebase">Docker</span>
+        
+        </div>
+
+        <a href="nextcloud.html" class="project-link">
+          View Project
+          <span class="arrow">←</span>
+        </a>
+
+      </div>
+    </div>
+        <!-- PROJECT 2 -->
+        <div class="project-card">
+
+          <div class="project-visual">
+            <div class="project-badge">02</div>
+            <h1 class="project-big-title">OTT Platform — Streaming Web App</h1>
+            <div class="glow-line"></div>
+          </div>
+    
+          <div class="project-info">
+    
+            <div class="project-year">2026 · Front-end + API Integration</div>
+    
+            <div class="project-desc">
+              <span data-ar>مشروع يهدف إلى تطبيق تصميم Figma بدقة 100% مع تكامل واجهة المنصة مع TMDB API لعرض بيانات الأفلام والمسلسلات.
+     </span>
+              <span data-en style="display:none;">
+                A project focused on achieving 100% Figma design fidelity while integrating the platform with the TMDB API to display movie and TV show data.
+              </span>
+            </div>
+    
+            <div class="project-tags">
+    
+              <span class="tag figma">React js</span>
+              <span class="tag react">Next js</span>
+              <span class="tag firebase">Tailwind CSS</span>
+            
+            </div>
+    
+            <a href="ott.html" class="project-link">
+              View Project
+              <span class="arrow">←</span>
+            </a>
+    
+          </div>
+        </div> 
+    <!-- PROJECT 3 -->
+    <div class="project-card">
+
+      <div class="project-visual">
+        <div class="project-badge">03</div>
         <h1 class="project-big-title">SKILLUP</h1>
         <div class="glow-line"></div>
       </div>
@@ -894,11 +1251,11 @@ body.lang-en .cv-item-date { direction: ltr; }
 
       </div>
     </div> 
-    <!-- PROJECT 2 -->
+    <!-- PROJECT 4 -->
     <div class="project-card">
 
       <div class="project-visual">
-        <div class="project-badge">02</div>
+        <div class="project-badge">04</div>
         <h1 class="project-big-title">SparkHub</h1>
         <div class="glow-line"></div>
       </div>
@@ -932,82 +1289,6 @@ body.lang-en .cv-item-date { direction: ltr; }
       </div>
     </div>
 
-    <!-- PROJECT 3 -->
-    <div class="project-card">
-
-      <div class="project-visual">
-        <div class="project-badge">03</div>
-        <h1 class="project-big-title">NAQDI App</h1>
-        <div class="glow-line"></div>
-      </div>
-
-      <div class="project-info">
-
-        <div class="project-year">2026 · UI Design</div>
-
-        <div class="project-desc">
-          <span data-ar>
-            تجربة بنك رقمي حديثة تركّز على تبسيط العمليات المالية ورفع وضوح التجربة.
-          </span>
-          <span data-en style="display:none;">
-            A modern banking experience focused on simplicity and clarity.
-          </span>
-        </div>
-
-        <div class="project-tags">
-
-          <span class="tag figma">Figma</span>
-          <span class="tag system">Design System</span>
-          <span class="tag layout">Auto Layout</span>
-        
-        </div>
-
-        <a href="naqdi.html" class="project-link">
-          View Project
-          <span class="arrow">←</span>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- PROJECT 4 -->
-    <div class="project-card">
-
-      <div class="project-visual">
-        <div class="project-badge">04</div>
-        <h1 class="project-big-title">HEALTHY App</h1>
-        <div class="glow-line"></div>
-      </div>
-
-      <div class="project-info">
-
-        <div class="project-year">2026 · UI Design</div>
-
-        <div class="project-desc">
-          <span data-ar>
-            واجهات لتتبع الخطوات والسعرات والمؤشرات الحيوية بتجربة بسيطة وسلسة.
-          </span>
-          <span data-en style="display:none;">
-            Interfaces for tracking steps, calories and health metrics.
-          </span>
-        </div>
-
-        <div class="project-tags">
-
-          <span class="tag figma">Figma</span>
-          <span class="tag ui">UI Design</span>
-          <span class="tag proto">Prototyping</span>
-        
-        </div>
-
-        <a href="healthapp.html" class="project-link">
-          View Project
-          <span class="arrow">←</span>
-        </a>
-
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -1027,7 +1308,7 @@ body.lang-en .cv-item-date { direction: ltr; }
     <span data-en style="display:none;">I Design the Idea.. and Turn It Into Reality.</span>
   </h2>
   <div class="cv-download-bar">
-    <a href="RahafSaadAlshammari-RESUME.pdf" download class="cv-download-btn">
+    <a href="RahafAlshammari-CV.pdf" download class="cv-download-btn">
       <span data-ar>تحميل السيرة الذاتية PDF</span>
       <span data-en style="display:none;">Download CV — PDF</span>
     </a>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nextcloud Case Study</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#E9E5E2;
+  --navy:#2A2856;
+  --muted:rgba(42,40,86,0.6);
+  --glass:rgba(255,255,255,0.35);
+  --border:rgba(42,40,86,0.15);
+}
+
+/* BASE */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+}
+
+/* LANG */
+.lang.en{display:none;}
+
+body.en .lang.ar{display:none;}
+body.en .lang.en{display:block;}
+
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(18px);
+  background:rgba(233,229,226,0.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  z-index:10;
+}
+
+/* BACK */
+.back-btn{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,0.25);
+  border:1px solid var(--border);
+  padding:8px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:800;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  background:var(--navy);
+  color:#fff;
+  transform:translateX(4px);
+}
+
+/* LANGUAGE BUTTON */
+.lang-btn{
+  background:rgba(255,255,255,0.25);
+  border:1px solid var(--border);
+  backdrop-filter:blur(14px);
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* LOGO */
+.nav-logo{
+  height:40px;
+  width:auto;
+  object-fit:contain;
+  transition:0.3s ease;
+}
+
+.nav-logo:hover{
+  transform:scale(1.05);
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:60px 20px 25px;
+}
+
+.hero h1{
+  font-size:44px;
+  font-weight:900;
+}
+
+.hero p{
+  max-width:700px;
+  margin:10px auto;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+/* CATEGORIES */
+.categories{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.category{
+  flex:1;
+  min-width:200px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  padding:18px;
+  border-radius:18px;
+  transition:0.3s;
+}
+
+.category:hover{
+  background:var(--navy);
+  color:#fff;
+}
+
+.category h3{
+  margin-bottom:8px;
+}
+
+.category p{
+  line-height:1.7;
+}
+
+/* SECTIONS */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:35px 20px;
+}
+
+/* CARD */
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(18px);
+  padding:22px;
+  border-radius:22px;
+}
+
+.card h2{
+  margin-bottom:20px;
+  font-size:26px;
+  font-weight:900;
+}
+
+/* PROJECT IMAGES */
+.nextcloud-img{
+  width:100%;
+  max-width:900px;
+  margin:18px auto;
+  display:block;
+  border-radius:18px;
+  border:1px solid var(--border);
+  transition:0.3s;
+}
+
+.nextcloud-img:hover{
+  transform:scale(1.015);
+}
+
+/* IDEA BOX */
+.idea-box{
+  padding:30px;
+  border-radius:26px;
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,0.4),
+    rgba(255,255,255,0.15)
+  );
+}
+
+.idea-title{
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.idea-text{
+  font-size:15px;
+  line-height:2;
+  color:rgba(42,40,86,0.75);
+}
+
+/* TAGS */
+.idea-tags{
+  margin-top:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.idea-tags span{
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  font-size:12px;
+  transition:0.3s;
+}
+
+.idea-tags span:hover{
+  background:var(--navy);
+  color:#fff;
+}
+
+/* FLOAT BUTTON */
+.floating{
+  position:fixed;
+  bottom:18px;
+  left:18px;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+}
+
+.floating.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.floating button{
+  background:var(--navy);
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+  .hero h1{
+    font-size:32px;
+  }
+
+  .category{
+    min-width:100%;
+  }
+
+  .nextcloud-img{
+    width:100%;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAV ================= -->
+
+<nav>
+
+  <button class="back-btn" onclick="history.back()">
+    ←
+    <span class="lang ar">رجوع</span>
+    <span class="lang en">Back</span>
+  </button>
+
+  <img src="emplogo.png" alt="Logo" class="nav-logo">
+
+  <button class="lang-btn" onclick="toggleLang()">
+    EN / AR
+  </button>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+  <h1>
+    <span class="lang ar">Nextcloud</span>
+    <span class="lang en">Nextcloud</span>
+  </h1>
+
+  <p>
+    <span class="lang ar">
+      منصة سحابية لمشاركة الملفات والتعاون الداخلي، مبنية على Microsoft Azure ومصممة لتوفير بيئة مركزية وآمنة لإدارة الملفات والمستخدمين.
+    </span>
+
+    <span class="lang en">
+      A cloud-based file sharing and collaboration platform hosted on Microsoft Azure, providing a centralized environment for managing files, users, and access.
+    </span>
+  </p>
+
+</section>
+
+
+<!-- ================= PROJECT INFO ================= -->
+
+<div class="categories">
+
+  <div class="category">
+
+    <h3>
+      <span class="lang ar">الدور</span>
+      <span class="lang en">Project Focus</span>
+    </h3>
+
+    <p>
+      Cloud Infrastructure • Deployment • Automation
+    </p>
+
+  </div>
+
+
+  <div class="category">
+
+    <h3>
+      <span class="lang ar">التقنيات</span>
+      <span class="lang en">Technologies</span>
+    </h3>
+
+    <p>
+      Azure • Terraform • Docker • Bash • Nextcloud
+    </p>
+
+  </div>
+
+
+  <div class="category">
+
+    <h3>
+      <span class="lang ar">الهدف</span>
+      <span class="lang en">Goal</span>
+    </h3>
+
+    <p>
+
+      <span class="lang ar">
+        بناء منصة مركزية لمشاركة الملفات والتعاون الداخلي
+      </span>
+
+      <span class="lang en">
+        Build a centralized platform for internal file sharing and collaboration
+      </span>
+
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- ================= PROJECT ARCHITECTURE ================= -->
+
+<section class="section">
+
+  <div class="card">
+
+    <h2>
+
+      <span class="lang ar">
+        البنية التحتية السحابية
+      </span>
+
+      <span class="lang en">
+        Cloud Infrastructure
+      </span>
+
+    </h2>
+
+    <img
+      class="nextcloud-img"
+      src="images/terraform.png"
+      alt="Terraform Infrastructure"
+    >
+
+    <img
+      class="nextcloud-img"
+      src="images/azure-vm.png"
+      alt="Azure Virtual Machine"
+    >
+
+  </div>
+
+</section>
+
+
+<!-- ================= IMPLEMENTATION ================= -->
+
+<section class="section">
+
+  <div class="card">
+
+    <h2>
+
+      <span class="lang ar">
+        تنفيذ المشروع
+      </span>
+
+      <span class="lang en">
+        Implementation
+      </span>
+
+    </h2>
+
+    <img
+      class="nextcloud-img"
+      src="images/nextcloud.png"
+      alt="Nextcloud Platform"
+    >
+       <img
+       class="nextcloud-img"
+       src="images/nextcloud3.png"
+       alt="Nextcloud Platform"
+     >
+        <img
+        class="nextcloud-img"
+        src="images/nextcloud2.png"
+        alt="Nextcloud Platform"
+      >
+
+  </div>
+
+</section>
+
+
+<!-- ================= PROJECT CONCEPT ================= -->
+
+<section class="section">
+
+  <div class="card idea-box">
+
+    <h2 class="idea-title">
+
+      <span class="lang ar">
+        فكرة المشروع
+      </span>
+
+      <span class="lang en">
+        Project Concept
+      </span>
+
+    </h2>
+
+
+    <p class="idea-text">
+
+      <span class="lang ar">
+
+        يهدف المشروع إلى بناء منصة سحابية داخلية لمشاركة الملفات والتعاون بين الفرق، من خلال توفير بيئة مركزية لإدارة الملفات والمستخدمين والصلاحيات. تم بناء البنية التحتية باستخدام Terraform على Microsoft Azure، ثم تشغيل Nextcloud وخدماته المساندة باستخدام Docker وDocker Compose مع أتمتة عملية النشر باستخدام Bash.
+
+      </span>
+
+
+      <span class="lang en">
+
+        The project aims to build an internal cloud-based platform for file sharing and team collaboration, providing a centralized environment for managing files, users, and access permissions. The infrastructure was provisioned using Terraform on Microsoft Azure, while Nextcloud and its supporting services were deployed using Docker and Docker Compose with Bash-based deployment automation.
+
+      </span>
+
+    </p>
+
+
+    <div class="idea-tags">
+
+      <span>Microsoft Azure</span>
+      <span>Terraform</span>
+      <span>Docker</span>
+      <span>Docker Compose</span>
+      <span>Bash</span>
+      <span>Nextcloud</span>
+      <span>PostgreSQL</span>
+      <span>Redis</span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= RESULT ================= -->
+
+<section class="section">
+
+  <div class="card idea-box">
+
+    <h2 class="idea-title">
+
+      <span class="lang ar">
+        النتيجة
+      </span>
+
+      <span class="lang en">
+        Outcome
+      </span>
+
+    </h2>
+
+
+    <p class="idea-text">
+
+      <span class="lang ar">
+
+        تم تشغيل منصة Nextcloud بنجاح على Azure، مع إمكانية تنظيم الملفات ومشاركتها، وإدارة المستخدمين والمجموعات والصلاحيات من خلال بيئة مركزية.
+
+      </span>
+
+
+      <span class="lang en">
+
+        Nextcloud was successfully deployed on Azure, enabling centralized file organization and sharing, along with user, group, and access management.
+
+      </span>
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FLOAT BUTTON ================= -->
+
+<div class="floating" id="topBtn">
+
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    ↑
+  </button>
+
+</div>
+
+
+<script>
+
+function toggleLang(){
+
+  document.body.classList.toggle('en');
+
+  if(document.body.classList.contains('en')){
+    document.documentElement.lang = "en";
+    document.documentElement.dir = "ltr";
+  }else{
+    document.documentElement.lang = "ar";
+    document.documentElement.dir = "rtl";
+  }
+
+}
+
+
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", () => {
+
+  if(window.scrollY > 400){
+
+    topBtn.classList.add("show");
+
+  }else{
+
+    topBtn.classList.remove("show");
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
